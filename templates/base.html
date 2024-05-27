@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    {% load static %} {% load bootstrap5 %} {% bootstrap_css %}
+     {% bootstrap_javascript %}
+    <meta charset="UTF-8" />
+    <title>{% block title %}Desenvolvimento web-mobile{% endblock %}</title>
+  </head>
+  <body class="bg-light">
+    <div class="container d-flex flex-column my-5">
+      <div id="menu-superior" class="d-flex justify-content-between">
+        {% block menu-superior %}
+        <nav class="d-flex flex-row gap-2">
+          <ui><a>Home</a></ui>
+          <ui><a>Veículos</a></ui>
+          <ui><a>Login</a></ui>
+        </nav>
+        <div class="container-usuario">Olá, {{ user }}</div>
+        {% endblock %}
+      </div>
+      <div id="conteudo" class="card rounded py-5">{% block conteudo %}{% endblock %}</div>
+    </div>
+  </body>
+</html>
