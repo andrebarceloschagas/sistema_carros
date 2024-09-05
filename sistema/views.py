@@ -1,10 +1,8 @@
-# -*- coding: utf-8 -*-
 from django.views.generic import View
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.conf import settings
-
 
 class Login(View):
     """
