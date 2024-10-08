@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'veiculo.apps.VeiculoConfig',
     # 'anuncio.apps.AnuncioConfig',
-    # 'rest_framework',
-    # "rest_framework.authtoken",
+    'rest_framework',
+    "rest_framework.authtoken",
 ]
 
 MIDDLEWARE = [
