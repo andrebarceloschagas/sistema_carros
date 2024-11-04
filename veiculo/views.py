@@ -1,51 +1,49 @@
-from django.http import FileResponse, Http404
-from django.urls import reverse_lazy
-from sistema.bibliotecas import LoginObrigatorio
-from veiculo.models import Veiculo
-from django.core.exceptions import ObjectDoesNotExist
+# -*- coding: utf-8 -*-
+from django.shortcuts import render
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from veiculo.forms import FormularioVeiculo
+from veiculo.models import Veiculo
+from django.http import FileResponse, Http404
+from django.core.exceptions import ObjectDoesNotExist
+from sistema.bibliotecas import LoginObrigatorio
 from veiculo.serializers import SerializadorVeiculo
 from rest_framework.generics import ListAPIView
+from veiculo.forms import FormularioVeiculo
+from django.urls import reverse_lazy
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import permissions
 
 
-
 class ListarVeiculos(LoginObrigatorio, ListView):
-
     """
-    View para listar veiculos cadastrados.
+    View para listar veículos cadastrados
     """
-
     model = Veiculo
     context_object_name = 'veiculos'
     template_name = 'veiculo/listar.html'
+    queryset = Veiculo.objects.filter(modelo ='F7')
 
     def get_queryset(self, **kwargs):
-        pesquisa = self.request.GET.get('pesquisa', None)
         queryset = Veiculo.objects.all()
+        pesquisa = self.request.GET.get('pesquisa', None)
         if pesquisa is not None:
-            queryset = queryset.filter(modelo__icontains=pesquisa)  
+            queryset = queryset.filter(modelo__icontains=pesquisa)
         return queryset
-    
-class FotoVeiculo(LoginObrigatorio):
 
+
+class FotoVeiculo(LoginObrigatorio):
     """
-    View para retornar a foto dos veiculos.
+    View para mostrar imagem de um veículo
     """
 
     def get(self, request, arquivo):
         try:
             veiculo = Veiculo.objects.get(foto='veiculo/fotos/{}'.format(arquivo))
             return FileResponse(veiculo.foto)
-        
         except ObjectDoesNotExist:
-            raise Http404("Foto não encontrada ou acesso não autorizado!")
-        
+            raise Http404("Veículo não encontrado")
         except Exception as exception:
             raise exception
-        
+
 class CriarVeiculos(LoginObrigatorio, CreateView):
 
     """
@@ -68,7 +66,7 @@ class EditarVeiculos(LoginObrigatorio, UpdateView):
     template_name = 'veiculo/editar.html'
     success_url = reverse_lazy('listar-veiculos')
 
-class DeletarVeiculo(LoginObrigatorio, DeleteView):
+class DeletarVeiculos(LoginObrigatorio, DeleteView):
 
     """
     View para deletar veiculos.
@@ -77,6 +75,7 @@ class DeletarVeiculo(LoginObrigatorio, DeleteView):
     model = Veiculo
     template_name = 'veiculo/deletar.html'
     success_url = reverse_lazy('listar-veiculos')
+
 
 class APIListarVeiculos(ListAPIView):
 
