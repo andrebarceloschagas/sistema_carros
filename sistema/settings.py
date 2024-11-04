@@ -36,12 +36,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'bootstrap5',
+    'django_bootstrap5',
     'veiculo.apps.VeiculoConfig',
     'anuncio.apps.AnuncioConfig',
     'rest_framework',
     'rest_framework.authtoken',
-    #'corsheaders',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
