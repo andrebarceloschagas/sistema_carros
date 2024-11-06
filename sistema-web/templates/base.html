@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    {% load static %} 
-    {% load django_bootstrap5 %} 
+    {% load static %}
+    {% load django_bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     <meta charset="UTF-8" />
@@ -14,7 +14,7 @@
         {% block menu-superior %}
         <div class="d-flex flex-row gap-2">
           <a href="/" class="btn btn-info text-white fw-bolder">Página Inicial</a>
-          
+
           {% if user.is_authenticated %}
           <button class="btn btn-outline-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Veículos
@@ -23,7 +23,7 @@
             <li><a class="dropdown-item" href="/veiculo">Visualizar todos</a></li>
             <li><a class="dropdown-item" href="/veiculo/novo">Cadastrar</a></li>
           </ul>
-          
+
           <button class="btn btn-outline-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Anúncios
           </button>
@@ -43,7 +43,7 @@
             Olá, Convidado
           {% endif %}
         </button>
-        
+
         <ul class="dropdown-menu">
           {% if user.is_authenticated %}
             <li><a class="dropdown-item" href="/admin">Administrador</a></li>
@@ -54,7 +54,7 @@
         </ul>
         {% endblock %}
       </div>
-      
+
       <div id="conteudo" class="card rounded py-5">
         {% block conteudo %}{% endblock %}
       </div>
