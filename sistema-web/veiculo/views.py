@@ -11,6 +11,7 @@ from veiculo.forms import FormularioVeiculo
 from django.urls import reverse_lazy
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import permissions
+from rest_framework.generics import DestroyAPIView
 
 
 class ListarVeiculos(LoginObrigatorio, ListView):
@@ -79,6 +80,18 @@ class DeletarVeiculos(LoginObrigatorio, DeleteView):
 
 class APIListarVeiculos(ListAPIView):
 
+    serializer_class = SerializadorVeiculo
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Veiculo.objects.all()
+    
+
+class APIDeletarVeiculos(DestroyAPIView):
+    """
+    View para deletar instâncias de veículos (por meio da API REST)
+    """
     serializer_class = SerializadorVeiculo
     authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
